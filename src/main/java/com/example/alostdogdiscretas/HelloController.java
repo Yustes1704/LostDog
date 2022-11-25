@@ -18,6 +18,7 @@ public class HelloController {
     @FXML
     private Button buttonEmpezar;
     private ArrayList<String> names;
+    private int A=0;
     private Random rd=new Random();
     @FXML
     private TextField nombre1;
@@ -29,7 +30,9 @@ public class HelloController {
     }
     @FXML
     void changeA(ActionEvent event) {
-        load();
+        if(A==0){
+            load();
+        }
         if(graph.search(nombre1.getText())==null){
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -55,6 +58,7 @@ public class HelloController {
     @FXML
     void depurar(ActionEvent event){
         load();
+        A++;
         if(graph.search(nombre1.getText())==null){
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -91,7 +95,7 @@ public class HelloController {
 
 
 
-
+        A--;
     }
     public void load(){
         graph=new Graph();
