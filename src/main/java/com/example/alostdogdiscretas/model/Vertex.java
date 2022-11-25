@@ -1,18 +1,21 @@
 package com.example.alostdogdiscretas.model;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+
 
 public class Vertex implements Comparator<Vertex> {
 
     private String name;
     private LinkedList<Edge> adjacentD;
-    private LinkedList<Vertex> adjacentT;
+
     private int distance;
+
     private Vertex previous;
     private boolean known;
     private int defaultDis = Integer.MAX_VALUE;
-
+    private int color;
     public Vertex() {
         name = null;
         distance = defaultDis;
@@ -20,14 +23,14 @@ public class Vertex implements Comparator<Vertex> {
         known = false;
     }
 
-    public Vertex(String argName) {
-        this.name = argName;
-        adjacentD = new LinkedList<Edge>();
-        adjacentT = new LinkedList<Vertex>();
-        distance = defaultDis;
+    public Vertex(String source) {
+        name = source;
+        adjacentD = new LinkedList<>();
         previous = null;
+        distance=defaultDis;
         known = false;
     }
+
 
     public int getDistance() {
         return distance;
@@ -65,14 +68,6 @@ public class Vertex implements Comparator<Vertex> {
         this.adjacentD = adjacentD;
     }
 
-    public LinkedList<Vertex> getAdjacentT() {
-        return adjacentT;
-    }
-
-    public void setAdjacentT(LinkedList<Vertex> adjacentT) {
-        this.adjacentT = adjacentT;
-    }
-
     public Vertex getPrevious() {
         return previous;
     }
@@ -95,5 +90,13 @@ public class Vertex implements Comparator<Vertex> {
 
     public void setDefaultDis(int defaultDis) {
         this.defaultDis = defaultDis;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

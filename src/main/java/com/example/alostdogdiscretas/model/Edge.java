@@ -2,14 +2,14 @@ package com.example.alostdogdiscretas.model;
 
 public class Edge {
     private Vertex destination;
-    private int weight;
+    private int distance;
     public Edge(){
         destination = null;
-        weight = Integer.MAX_VALUE;
+        distance = 1;
     }
     public Edge(Vertex d,int w){
         destination = d;
-        weight = w;
+        distance = w;
     }
 
     public Vertex getDestination() {
@@ -20,11 +20,11 @@ public class Edge {
         this.destination = destination;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getDistance() {
+        return distance;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }
