@@ -1,5 +1,6 @@
 package com.example.alostdogdiscretas.model;
 
+import javax.crypto.spec.PSource;
 import java.util.*;
 
 
@@ -39,9 +40,8 @@ public class Graph {
                 if(u!=vertex){
                     u.setColor(2);
                     int a=0;
-                    int b=((Integer)a).MAX_VALUE;
-                    u.setDistance(b);
-                    u.setPrevious(null);
+
+
                 }
             }
             vertex.setColor(1);
@@ -60,16 +60,13 @@ public class Graph {
                 for(Vertex v:temp){
                     if(v.getColor()==2){
                         v.setColor(1);
-                        v.setDistance(u.getDistance()+1);
                         v.setPrevious(u);
                         queue.add(v);
                     }
                 }
                 u.setColor(3);
-
             }
         }
-
     }
 
     public void dijkstra(String init, String finish) {
@@ -77,6 +74,7 @@ public class Graph {
         start.setDistance(0);
         pq.add(start);
         int handled = 0;
+        System.out.println(search("Juan Jose"));
         while (handled < vertexes.size() ){
             Vertex current = pq.poll();
                int vertWeight = current.getDistance();
@@ -112,19 +110,25 @@ public class Graph {
             }
         }
     }
+    public String message;
     public void printPath(Vertex c) {
+
         Vertex current = c;
         if (current.getPrevious() != null) {
             printPath(current.getPrevious());
-            System.out.print(" --> ");
-            System.out.print(current.getName());
+            message+=" --> "+current.getName();
         }
         if (current.getPrevious() == null) {
-            System.out.print(current.getName());
+            message+=current.getName();
         }
+
     }
 
     public ArrayList<Vertex> getVertexes() {
         return vertexes;
+    }
+
+    public void setVertexes(ArrayList<Vertex> vertexes) {
+        this.vertexes = vertexes;
     }
 }

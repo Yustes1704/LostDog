@@ -4,6 +4,7 @@ import com.example.alostdogdiscretas.model.Graph;
 import com.example.alostdogdiscretas.model.Vertex;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -27,7 +28,6 @@ public class HelloController {
     @FXML
     void changeA(ActionEvent event) {
         load();
-        System.out.println(graph.getVertexes().get(0).getName());
         graph.addEdge(names.get(0),names.get(1),3);
         graph.addEdge(names.get(0),names.get(2),5);
         graph.addEdge(names.get(1),names.get(2),6);
@@ -87,24 +87,40 @@ public class HelloController {
         graph.addEdge(names.get(48),names.get(49),9);
         graph.addEdge(names.get(48),names.get(50),8);
 
-        //graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
+
+
         graph.BFS(nombre1.getText());
+
+
         boolean flag=true;
+        ArrayList<Vertex> aux=new ArrayList<>();
         for(int i=0;i < 4 && flag;i++){
             for (int j=0;j<graph.getVertexes().size();j++){
                 System.out.println(graph.getVertexes().get(j).getColor());
-                if(graph.getVertexes().get(j).getColor()!=3){
-
-                    flag=false;
-                    break;
+                if(graph.getVertexes().get(j).getColor()==2){
+                    System.out.println(graph.getVertexes().get(j).getName());
+                 aux.add(graph.getVertexes().get(j));
                 }
             }
         }
-        if(flag){
-            System.out.println("Conexo");
-        }else{
-            System.out.println("No conexo");
-        }
+
+        System.out.println(graph.getVertexes().size());
+        graph.getVertexes().removeAll(aux);
+
+
+        graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
+        System.out.println(graph.search("Thor"));
+
+        System.out.println(graph.getVertexes().size());
+        String message=graph.message.replace("null","");
+        System.out.println(message);
+
+
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Path");
+        alert.setHeaderText("Shortest path");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     public void load(){
         graph=new Graph();
@@ -121,7 +137,7 @@ public class HelloController {
         names.add(graph.newVertex("David"));
         names.add(graph.newVertex("Sara"));
         names.add(graph.newVertex("Juan Jose"));
-        names.add(graph.newVertex("Juan Jose"));
+        names.add(graph.newVertex("Juan Pablo"));
         names.add(graph.newVertex("Yustes"));
         names.add(graph.newVertex("Juan Diego"));
         names.add(graph.newVertex("Luisa"));

@@ -1,5 +1,6 @@
 package com.example.alostdogdiscretas.model;
 
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 public class Vertex implements Comparator<Vertex> {
 
     private String name;
-    private LinkedList<Edge> adjacentD;
+    private ArrayList<Edge> adjacentD;
 
     private int distance;
 
@@ -25,7 +26,7 @@ public class Vertex implements Comparator<Vertex> {
 
     public Vertex(String source) {
         name = source;
-        adjacentD = new LinkedList<>();
+        adjacentD = new ArrayList<>();
         previous = null;
         distance=defaultDis;
         known = false;
@@ -60,11 +61,11 @@ public class Vertex implements Comparator<Vertex> {
         this.name = name;
     }
 
-    public LinkedList<Edge> getAdjacentD() {
+    public ArrayList<Edge> getAdjacentD() {
         return adjacentD;
     }
 
-    public void setAdjacentD(LinkedList<Edge> adjacentD) {
+    public void setAdjacentD(ArrayList<Edge> adjacentD) {
         this.adjacentD = adjacentD;
     }
 
