@@ -21,13 +21,132 @@ public class HelloController {
     private Random rd=new Random();
     @FXML
     private TextField nombre1;
-
     @FXML
-    private TextField nombre2;
-
+    private Button triggerBFS;
+    @FXML
+    void load(ActionEvent event){
+        load();
+    }
     @FXML
     void changeA(ActionEvent event) {
         load();
+        if(graph.search(nombre1.getText())==null){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Wrong name");
+            alert.setContentText("Type a valid name");
+            alert.showAndWait();
+        }else{
+            graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
+
+            String message=graph.message.replace("null","");
+            System.out.println(message);
+
+            System.out.println(graph.getVertexes().size());
+
+            Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Path");
+            alert.setHeaderText("Shortest path");
+            alert.setContentText("These people will guide you to your pet "+message+"  and you wil find it in "+graph.distance+" hours");
+            alert.showAndWait();
+        }
+
+    }
+    @FXML
+    void depurar(ActionEvent event){
+        load();
+        if(graph.search(nombre1.getText())==null){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Wrong name");
+            alert.setContentText("Type a valid name");
+            alert.showAndWait();
+        }else{
+            graph.BFS(nombre1.getText());
+            boolean flag=true;
+            ArrayList<Vertex> aux=new ArrayList<>();
+            for(int i=0;i < 4 && flag;i++){
+                for (int j=0;j<graph.getVertexes().size();j++){
+                    System.out.println(graph.getVertexes().get(j).getColor());
+                    if(graph.getVertexes().get(j).getColor()==2){
+                        System.out.println(graph.getVertexes().get(j).getName());
+                        aux.add(graph.getVertexes().get(j));
+                    }
+                }
+            }
+            for (Vertex v:aux){
+                System.out.println(v.getName());
+            }
+            int a=graph.getVertexes().size();
+            graph.getVertexes().removeAll(aux);
+            int b=graph.getVertexes().size();
+            int c=a-b;
+            Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Depuration");
+            alert.setHeaderText("Proces completed");
+            alert.setContentText(c+" ocurrences have been removed ");
+            alert.showAndWait();
+        }
+
+
+
+
+
+    }
+    public void load(){
+        graph=new Graph();
+        names=new ArrayList<>();
+        names.add(graph.newVertex("Simon"));
+        names.add(graph.newVertex("Falcao"));
+        names.add(graph.newVertex("Cristiano"));
+        names.add(graph.newVertex("Messi"));
+        names.add(graph.newVertex("James"));
+        names.add(graph.newVertex("Neymar"));
+        names.add(graph.newVertex("Vinicious"));
+        names.add(graph.newVertex("Luiz Diaz"));
+        names.add(graph.newVertex("Yerry"));
+        names.add(graph.newVertex("David"));
+        names.add(graph.newVertex("Sara"));
+        names.add(graph.newVertex("Juan Jose"));
+        names.add(graph.newVertex("Juan Pablo"));
+        names.add(graph.newVertex("Yustes"));
+        names.add(graph.newVertex("Juan Diego"));
+        names.add(graph.newVertex("Luisa"));
+        names.add(graph.newVertex("Ibai"));
+        names.add(graph.newVertex("Westcol"));
+        names.add(graph.newVertex("Titi"));
+        names.add(graph.newVertex("Jeisson"));
+        names.add(graph.newVertex("Cristian"));
+        names.add(graph.newVertex("Marlon"));
+        names.add(graph.newVertex("Juan Esteban"));
+        names.add(graph.newVertex("Juan Manuel"));
+        names.add(graph.newVertex("Sebastian"));
+        names.add(graph.newVertex("Jose Manuel"));
+        names.add(graph.newVertex("Daniela"));
+        names.add(graph.newVertex("Valeria"));
+        names.add(graph.newVertex("Valentina"));
+        names.add(graph.newVertex("Luna"));
+        names.add(graph.newVertex("Isabella"));
+        names.add(graph.newVertex("Mariana"));
+        names.add(graph.newVertex("Sofia"));
+        names.add(graph.newVertex("Mario"));
+        names.add(graph.newVertex("Luigi"));
+        names.add(graph.newVertex("Sonic"));
+        names.add(graph.newVertex("Carmona"));
+        names.add(graph.newVertex("Nate"));
+        names.add(graph.newVertex("Lee"));
+        names.add(graph.newVertex("Yeury"));
+        names.add(graph.newVertex("Kratos"));
+        names.add(graph.newVertex("Atreus"));
+        names.add(graph.newVertex("Odin"));
+        names.add(graph.newVertex("Thor"));
+        names.add(graph.newVertex("German"));
+        names.add(graph.newVertex("Judy"));
+        names.add(graph.newVertex("Amilbia"));
+        names.add(graph.newVertex("Eduardo"));
+        names.add(graph.newVertex("Ana"));
+        names.add(graph.newVertex("Luisa Felipe"));
+        names.add(graph.newVertex("Pablo"));
         graph.addEdge(names.get(0),names.get(1),3);
         graph.addEdge(names.get(0),names.get(2),5);
         graph.addEdge(names.get(1),names.get(2),6);
@@ -87,95 +206,6 @@ public class HelloController {
         graph.addEdge(names.get(48),names.get(49),9);
         graph.addEdge(names.get(48),names.get(50),8);
 
-
-
-        graph.BFS(nombre1.getText());
-
-
-        boolean flag=true;
-        ArrayList<Vertex> aux=new ArrayList<>();
-        for(int i=0;i < 4 && flag;i++){
-            for (int j=0;j<graph.getVertexes().size();j++){
-                System.out.println(graph.getVertexes().get(j).getColor());
-                if(graph.getVertexes().get(j).getColor()==2){
-                    System.out.println(graph.getVertexes().get(j).getName());
-                 aux.add(graph.getVertexes().get(j));
-                }
-            }
-        }
-
-        System.out.println(graph.getVertexes().size());
-        graph.getVertexes().removeAll(aux);
-
-
-        graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
-        System.out.println(graph.search("Thor"));
-
-        System.out.println(graph.getVertexes().size());
-        String message=graph.message.replace("null","");
-        System.out.println(message);
-
-
-        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Path");
-        alert.setHeaderText("Shortest path");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    public void load(){
-        graph=new Graph();
-        names=new ArrayList<>();
-        names.add(graph.newVertex("Simon"));
-        names.add(graph.newVertex("Falcao"));
-        names.add(graph.newVertex("Cristiano"));
-        names.add(graph.newVertex("Messi"));
-        names.add(graph.newVertex("James"));
-        names.add(graph.newVertex("Neymar"));
-        names.add(graph.newVertex("Vinicious"));
-        names.add(graph.newVertex("Luiz Diaz"));
-        names.add(graph.newVertex("Yerry"));
-        names.add(graph.newVertex("David"));
-        names.add(graph.newVertex("Sara"));
-        names.add(graph.newVertex("Juan Jose"));
-        names.add(graph.newVertex("Juan Pablo"));
-        names.add(graph.newVertex("Yustes"));
-        names.add(graph.newVertex("Juan Diego"));
-        names.add(graph.newVertex("Luisa"));
-        names.add(graph.newVertex("Ibai"));
-        names.add(graph.newVertex("Westcol"));
-        names.add(graph.newVertex("Titi"));
-        names.add(graph.newVertex("Jeisson"));
-        names.add(graph.newVertex("Cristian"));
-        names.add(graph.newVertex("Marlon"));
-        names.add(graph.newVertex("Juan Esteban"));
-        names.add(graph.newVertex("Juan Manuel"));
-        names.add(graph.newVertex("Sebastian"));
-        names.add(graph.newVertex("Jose Manuel"));
-        names.add(graph.newVertex("Daniela"));
-        names.add(graph.newVertex("Valeria"));
-        names.add(graph.newVertex("Valentina"));
-        names.add(graph.newVertex("Luna"));
-        names.add(graph.newVertex("Isabella"));
-        names.add(graph.newVertex("Mariana"));
-        names.add(graph.newVertex("Sofia"));
-        names.add(graph.newVertex("Mario"));
-        names.add(graph.newVertex("Luigi"));
-        names.add(graph.newVertex("Sonic"));
-        names.add(graph.newVertex("Carmona"));
-        names.add(graph.newVertex("Nate"));
-        names.add(graph.newVertex("Lee"));
-        names.add(graph.newVertex("Yeury"));
-        names.add(graph.newVertex("Kratos"));
-        names.add(graph.newVertex("Atreus"));
-        names.add(graph.newVertex("Odin"));
-        names.add(graph.newVertex("Thor"));
-        names.add(graph.newVertex("German"));
-        names.add(graph.newVertex("Judy"));
-        names.add(graph.newVertex("Amilbia"));
-        names.add(graph.newVertex("Eduardo"));
-        names.add(graph.newVertex("Ana"));
-        names.add(graph.newVertex("Luisa Felipe"));
-        names.add(graph.newVertex("Pablo"));
     }
 
 }

@@ -39,9 +39,6 @@ public class Graph {
             for(Vertex u: vertexes){
                 if(u!=vertex){
                     u.setColor(2);
-                    int a=0;
-
-
                 }
             }
             vertex.setColor(1);
@@ -68,7 +65,7 @@ public class Graph {
             }
         }
     }
-
+    public String distance;
     public void dijkstra(String init, String finish) {
         Vertex start = search(init);
         start.setDistance(0);
@@ -86,7 +83,7 @@ public class Graph {
                         System.out.println("Personas a las cuales preguntar: ");
                         printPath(current);
                         System.out.println();
-                        System.out.println("Horas "+current.getDistance());
+                        System.out.println(distance= String.valueOf(current.getDistance()));
                         return;
                     }
                 }
@@ -110,7 +107,7 @@ public class Graph {
             }
         }
     }
-    public String message;
+    public String message="";
     public void printPath(Vertex c) {
 
         Vertex current = c;
