@@ -22,12 +22,6 @@ public class Graph {
         a.getAdjacentD().add(new Edge(b,weight));
         b.getAdjacentD().add(new Edge(a,weight));
 
-
-
-        /*Vertex v = getVertex(source);
-        Vertex w = getVertex(dest);
-        v.getAdjacentD().add(new Edge(w, weight));
-        w.getAdjacentD().add(new Edge(v, weight));*/
     }
     public Vertex search(String goal){
         for (Vertex v: vertexes){
@@ -59,7 +53,11 @@ public class Graph {
             Vertex u;
             while(!queue.isEmpty()){
                 u=queue.poll();
-                for(Vertex v:u.getAdjacentD()){
+                ArrayList<Vertex> temp=new ArrayList<>();
+                for(Edge a:u.getAdjacentD()){
+                    temp.add(a.getDestination());
+                }
+                for(Vertex v:temp){
                     if(v.getColor()==2){
                         v.setColor(1);
                         v.setDistance(u.getDistance()+1);

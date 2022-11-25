@@ -87,13 +87,14 @@ public class HelloController {
         graph.addEdge(names.get(48),names.get(49),9);
         graph.addEdge(names.get(48),names.get(50),8);
 
-        graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
-        /*graph.BFS(nombre1.getText());
+        //graph.dijkstra(nombre1.getText(), names.get(rd.nextInt(names.size()-1)));
+        graph.BFS(nombre1.getText());
         boolean flag=true;
         for(int i=0;i < 4 && flag;i++){
-            for (int j=0;j<graph.getVertices().size();j++){
+            for (int j=0;j<graph.getVertexes().size();j++){
+                System.out.println(graph.getVertexes().get(j).getColor());
+                if(graph.getVertexes().get(j).getColor()!=3){
 
-                if(graph.getVertices().get(j).getColor()!=3){
                     flag=false;
                     break;
                 }
@@ -103,7 +104,7 @@ public class HelloController {
             System.out.println("Conexo");
         }else{
             System.out.println("No conexo");
-        }*/
+        }
     }
     public void load(){
         graph=new Graph();
